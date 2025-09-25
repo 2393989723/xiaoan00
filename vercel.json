@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/**/*.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     },
     {
@@ -13,15 +13,11 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "dest": "/api/index.js"
     },
     {
       "src": "/(.*)",
       "dest": "/public/$1"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "mongodb+srv://1619746209_db_user:12345678900@886.tjyr5de.mongodb.net/?retryWrites=true&w=majority&appName=886",
-    "JWT_SECRET": "your-jwt-secret-key-here"
-  }
+  ]
 }
