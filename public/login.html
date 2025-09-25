@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账号商城 - 登录</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">账号商城</h1>
+            <div class="nav-menu">
+                <a href="/" class="nav-link">首页</a>
+                <a href="/dashboard" class="nav-link">商品</a>
+                <a href="/login" class="nav-link active">登录</a>
+                <a href="/register" class="nav-link">注册</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2>用户登录</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">登录</button>
+                </form>
+                <p class="auth-link">还没有账号？<a href="/register">立即注册</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 账号商城. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    alert('登录成功！');
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('登录失败: ' + data.error);
+                }
+            } catch (error) {
+                console.error('登录错误:', error);
+                alert('登录失败，请重试');
+            }
+        });
+        
+        // 检查是否已登录
+        if (localStorage.getItem('token')) {
+            window.location.href = '/dashboard';
+        }
+    </script>
+</body>
+</html>
