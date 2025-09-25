@@ -1,20 +1,8 @@
 {
-  "name": "account-store",
+  "name": "xiaoan00",
   "version": "1.0.0",
   "description": "账号购买网站",
-  "main": "api/index.js",
-  "scripts": {
-    "dev": "vercel dev",
-    "start": "node api/index.js"
-  },
   "dependencies": {
-    "express": "^4.18.2",
-    "mongodb": "^5.7.0",
-    "cors": "^2.8.5",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2"
-  },
-  "devDependencies": {
-    "vercel": "^28.16.0"
+    "mongodb": "^5.7.0"
   }
 }
